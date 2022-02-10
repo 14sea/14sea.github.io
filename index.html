@@ -150,65 +150,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/09/20220209/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hwanin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="14SEA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/09/20220209/" class="post-title-link" itemprop="url">20220209</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-09 23:57:14 / Modified: 23:58:19" itemprop="dateCreated datePublished" datetime="2022-02-09T23:57:14+08:00">2022-02-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>瞎翻的一天。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/06/20220206/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -240,7 +181,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-07 20:12:10" itemprop="dateModified" datetime="2022-02-07T20:12:10+08:00">2022-02-07</time>
+                <time title="Modified: 2022-02-10 21:36:48" itemprop="dateModified" datetime="2022-02-10T21:36:48+08:00">2022-02-10</time>
               </span>
 
           
@@ -254,8 +195,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>CVE-2020-8423 简单看了一下，明天分析完再发吧。</p>
-<p>2022-02-07<br>跑去看 Andeoid 去了，明天再玩路由器吧。。。<br>下面这篇。。。（其实还没完全看懂。。。orz。。。）<br><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-271358.htm">https://bbs.pediy.com/thread-271358.htm</a></p>
+          <h1 id="TL-WR841N-QEMU-环境"><a href="#TL-WR841N-QEMU-环境" class="headerlink" title="TL-WR841N QEMU 环境"></a>TL-WR841N QEMU 环境</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">参考资料：</span><br><span class="line">https://ktln2.org/2020/03/29/exploiting-mips-router/</span><br><span class="line">https://www.mrskye.cn/archives/e77640bd/</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="0x01-编译-linux-内核"><a href="#0x01-编译-linux-内核" class="headerlink" title="0x01 编译 linux 内核"></a>0x01 编译 linux 内核</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装 Sourcery_CodeBench_Lite_for_MIPS_GNU_Linux</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> https://sourcery.mentor.com/GNUToolchain/release1872</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 Sourcery_CodeBench_Lite_for_MIPS_GNU_Linux 加入PATH</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">export</span> PATH=<span class="string">&quot;/home/kali/CodeSourcery/Sourcery_CodeBench_Lite_for_MIPS_GNU_Linux/bin:<span class="variable">$PATH</span>&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> tar xvf linux-2.6.31.tar.xz</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">export</span> ARCH=mips</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">export</span> CROSS_COMPILE=mips-linux-gnu-</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make malta_defconfig</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make menuconfig</span></span><br><span class="line"><span class="meta">#</span><span class="bash">  &lt; select BIG ENDIAN &gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make -j $(nproc)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译过程中报错的解决方案，把 defined 删了就行了，pl 版本的问题。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> https://www.cnblogs.com/tid-think/p/10929435.html</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="0x02-Qemu"><a href="#0x02-Qemu" class="headerlink" title="0x02 Qemu"></a>0x02 Qemu</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> qemu-system-mips \</span></span><br><span class="line"><span class="bash">    -M malta \</span></span><br><span class="line"><span class="bash">    -kernel linux-2.6.31/vmlinux \</span></span><br><span class="line"><span class="bash">    -hda mips/debian_squeeze_mips_standard.qcow2 \</span></span><br><span class="line"><span class="bash">    -append <span class="string">&quot;root=/dev/hda1 console=ttyS0&quot;</span> \</span></span><br><span class="line"><span class="bash">    -nographic \</span></span><br><span class="line"><span class="bash">    -serial mon:stdio \</span></span><br><span class="line"><span class="bash">    -nic user,hostfwd=tcp::2222-:22,hostfwd=tcp::8080-:80</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> binwalk -Me wr841nv10.bin</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> scp -r -P 2222 ./squashfs-root  root@127.0.0.1:/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> ssh -p 2222 -o StrictHostKeyChecking=no -o UserKNownHostsFile=/dev/null root@127.0.0.1</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="0x03-chroot"><a href="#0x03-chroot" class="headerlink" title="0x03 chroot"></a>0x03 chroot</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 设置目录</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mount --<span class="built_in">bind</span> /proc /squashfs-root/proc/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chroot /squashfs-root/ bin/sh</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="0x04-hook-system-和-fork-并运行"><a href="#0x04-hook-system-和-fork-并运行" class="headerlink" title="0x04 hook system 和 fork 并运行"></a>0x04 hook system 和 fork 并运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://github.com/gipi/teardown</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mips-linux-gnu-gcc-4.5.2  -muclibc -ldl -shared -fPIC -shared hook.c -o hook-mips.so</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 上传 hook-mips.so</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> scp -r -P 2222 ./hook-mips.so root@127.0.0.1:/squashfs-root/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 加载</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">export</span> LD_PRELOAD=/hook-mips.so</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> httpd</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -902,7 +854,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
