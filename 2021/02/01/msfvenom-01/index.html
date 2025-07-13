@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/snow.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/snow.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/snow.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"14sea.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="messagebox 最终修改： 2021.02.18初稿日期： 2021.02.01msf 版本： 6.0.28本地系统： Kali-Linux-2020.4-vmware-amd64目标系统： windows x86文档描述： 第一篇先从 MessageBox 开始吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="msfvenom_01">
+<meta property="og:url" content="https://14sea.github.io/2021/02/01/msfvenom-01/index.html">
+<meta property="og:site_name" content="14SEA">
+<meta property="og:description" content="messagebox 最终修改： 2021.02.18初稿日期： 2021.02.01msf 版本： 6.0.28本地系统： Kali-Linux-2020.4-vmware-amd64目标系统： windows x86文档描述： 第一篇先从 MessageBox 开始吧">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-01T23:53:10.000Z">
+<meta property="article:modified_time" content="2021-02-18T03:55:16.000Z">
+<meta property="article:author" content="14SEA">
+<meta property="article:tag" content="pentest">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://14sea.github.io/2021/02/01/msfvenom-01/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://14sea.github.io/2021/02/01/msfvenom-01/","path":"2021/02/01/msfvenom-01/","title":"msfvenom_01"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>msfvenom_01 | 14SEA</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">14SEA</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Carbon 14</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#messagebox"><span class="nav-number">1.</span> <span class="nav-text">messagebox</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">14SEA</p>
+  <div class="site-description" itemprop="description">Witnessing history is akin to carbon-14.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/14sea" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;14sea" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://14sea.github.io/2021/02/01/msfvenom-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="14SEA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="14SEA">
+      <meta itemprop="description" content="Witnessing history is akin to carbon-14.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="msfvenom_01 | 14SEA">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          msfvenom_01
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-02-01 23:53:10" itemprop="dateCreated datePublished" datetime="2021-02-01T23:53:10+00:00">2021-02-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-02-18 03:55:16" itemprop="dateModified" datetime="2021-02-18T03:55:16+00:00">2021-02-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="messagebox"><a href="#messagebox" class="headerlink" title="messagebox"></a>messagebox</h1><blockquote>
+<p>最终修改： 2021.02.18<br>初稿日期： 2021.02.01<br>msf 版本： 6.0.28<br>本地系统： Kali-Linux-2020.4-vmware-amd64<br>目标系统： windows x86<br>文档描述： 第一篇先从 MessageBox 开始吧</p>
+</blockquote>
+<span id="more"></span>
+
+
+
+<p>msfvenom 生成的 messagebox shellcode</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">msfvenom -a x86 --platform windows -p windows/messagebox TEXT=<span class="string">&quot;MSFU Example&quot;</span> -f raw &gt; messageBox</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>初始化部分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">D9 EB           fldpi                   ; 载入圆周率/激活浮点寄存器</span><br><span class="line">9B D9 74 24 F4  fstenv  byte ptr [esp-0Ch] ; 把 FpuSaveState 结构体保存在 [esp-0Ch] 处</span><br><span class="line">31 D2           xor     edx, edx        ; edx 清零</span><br><span class="line">B2 77           mov     dl, 77h ; &#x27;w&#x27;   ; dl 置位 77h</span><br><span class="line">31 C9           xor     ecx, ecx        ; ecx 清零</span><br><span class="line">64 8B 71 30     mov     esi, fs:[ecx+30h] ; 从 TEB 中得到 PEB 结构地址，存入 esi</span><br><span class="line">8B 76 0C        mov     esi, [esi+0Ch]  ; 获取 PEB_LDR_Data 结构地址，存入 esi</span><br><span class="line">8B 76 1C        mov     esi, [esi+1Ch]  ; PLD 中 1c 位置的 InInitializationOrderLinks 存入 esi</span><br><span class="line"></span><br><span class="line">next_module:</span><br><span class="line">8B 46 08        mov     eax, [esi+8]    ; eax = [esi+8]</span><br><span class="line">8B 7E 20        mov     edi, [esi+20h]  ; edx = [esi+20]</span><br><span class="line">8B 36           mov     esi, [esi]      ; esi = [esi]</span><br><span class="line">38 4F 18        cmp     [edi+18h], cl   ; 判断下一项是否为空</span><br><span class="line">75 F3           jnz     short loc_17    ; 不为空则继续循环</span><br><span class="line">59              pop     ecx             ; ecx = 0018FCF4 = shellcode 起始地址</span><br><span class="line">01 D1           add     ecx, edx        ; ecx = 0018FD6B = sub_77 </span><br><span class="line">FF E1           jmp     ecx             ; 跳转到 shellcode 入口</span><br></pre></td></tr></table></figure>
+
+
+
+<p>寻找目标模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">; find_function</span><br><span class="line">60              pusha</span><br><span class="line">8B 6C 24 24     mov     ebp, [esp+24h]  ; 将要加载模块的基地址放入EBP</span><br><span class="line">8B 45 3C        mov     eax, [ebp+3Ch]  ; 跳过 DOS 头</span><br><span class="line">8B 54 28 78     mov     edx, [eax+ebp+78h] ; 找到导出表, 并将其相对地址放入EDX</span><br><span class="line">01 EA           add     edx, ebp        ; 将相对地址(EDX)与基地址(EBP)相加, 得到导出表的绝对地址, 存入 EDX</span><br><span class="line">8B 4A 18        mov     ecx, [edx+18h]  ; 设置计数器 ECX</span><br><span class="line">8B 5A 20        mov     ebx, [edx+20h]  ; 将 名称表 的相对偏移存入 EBX</span><br><span class="line">01 EB           add     ebx, ebp        ; 得到 名称表 的绝对地址, 存入EBX</span><br><span class="line"> </span><br><span class="line">fund_function_l oop:</span><br><span class="line">E3 34           jecxz   short loc_75    ; find_function_finished, 如果 ECX 为 0, 并且最后一个函数被验证过了</span><br><span class="line">                                        ; 正常情况下不应执行这个跳转</span><br><span class="line">                                        ; 执行这个跳转说明函数没找到</span><br><span class="line">49              dec     ecx             ; ECX - 1</span><br><span class="line">8B 34 8B        mov     esi, [ebx+ecx*4] ; 获取当前函数的名称的相对偏移, 并存入 ESI</span><br><span class="line">01 EE           add     esi, ebp        ; 相对地址 + 基地址 获得 绝对地址</span><br><span class="line">; compute_hash  :</span><br><span class="line">31 FF           xor     edi, edi        ; EDI 清零</span><br><span class="line">31 C0           xor     eax, eax        ; EAX 清零</span><br><span class="line">FC              cld                     ; 清空标志位</span><br><span class="line"> </span><br><span class="line">compute_hash_again:         </span><br><span class="line">AC              lodsb                   ; 获取当前的函数名(ESI 中存储地址处的字符串)</span><br><span class="line">84 C0           test    al, al          ; 检查是否为所要找的函数名</span><br><span class="line">74 07           jz      short compute_hash_finished ; 找到了执行该跳转</span><br><span class="line">C1 CF 0D        ror     edi, 0Dh        ; 把 hash 循环右移13位</span><br><span class="line">01 C7           add     edi, eax        ; 把当前函数名的 Character 加入到 hash</span><br><span class="line">EB F4           jmp     short compute_hash_again ; 继续找</span><br><span class="line"></span><br><span class="line">compute_hash_finished:</span><br><span class="line">3B 7C 24 28     cmp     edi, [esp+28h]  ; 检查当前hash是否匹配所要找的函数的hash</span><br><span class="line">75 E1           jnz     short fund_function_loop ; 不匹配, 继续找</span><br><span class="line">8B 5A 24        mov     ebx, [edx+24h]  ; 取出序号表的相对地址，放入 EBX</span><br><span class="line">01 EB           add     ebx, ebp        ; 得到绝对地址</span><br><span class="line">66 8B 0C 4B     mov     cx, [ebx+ecx*2] ; 获取当前符号序号</span><br><span class="line">8B 5A 1C        mov     ebx, [edx+1Ch]  ; 获取相对地址放入EBX</span><br><span class="line">01 EB           add     ebx, ebp        ; 获取绝对地址</span><br><span class="line">8B 04 8B        mov     eax, [ebx+ecx*4] ; 获取函数偏移</span><br><span class="line">01 E8           add     eax, ebp        ; 得到函数的实际地址</span><br><span class="line">89 44 24 1C     mov     [esp+1Ch], eax  ; 把函数地址存入 esp+1Ch</span><br><span class="line"></span><br><span class="line">popa:</span><br><span class="line">61              popa</span><br><span class="line">C3              retn</span><br><span class="line">; find_function endp</span><br></pre></td></tr></table></figure>
+
+
+
+<p>shellcode正文</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">; start_main</span><br><span class="line">B2 08            mov     dl, 8</span><br><span class="line">29 D4            sub     esp, edx        ; 分配栈空间</span><br><span class="line">89 E5            mov     ebp, esp        ; 将 ebp 设置为 相对偏移 的 帧ptr</span><br><span class="line">89 C2            mov     edx, eax        ; 将 kernel32 的基地址保存在 edx 中</span><br><span class="line">68 8E 4E 0E EC   push    0EC0E4E8Eh      ; 获取 LoadLibrary 函数 ptr</span><br><span class="line">52               push    edx</span><br><span class="line">E8 9F FF FF FF   call    find_function   ; eax = 77574907 = LoadLibraryA</span><br><span class="line">89 45 04         mov     [ebp+4], eax</span><br><span class="line">BB 7E D8 E2 73   mov     ebx, 73E2D87Eh</span><br><span class="line">87 1C 24         xchg    ebx, [esp]</span><br><span class="line">52               push    edx</span><br><span class="line">E8 8E FF FF FF   call    find_function   ; eax = 77577a10 = ExitProcess</span><br><span class="line">89 45 08         mov     [ebp+8], eax</span><br><span class="line">68 6C 6C 20 41   push    &#x27;A ll&#x27;</span><br><span class="line">68 33 32 2E 64   push    &#x27;d.23&#x27;</span><br><span class="line">68 75 73 65 72   push    &#x27;resu&#x27;</span><br><span class="line">30 DB            xor     bl, bl</span><br><span class="line">88 5C 24 0A      mov     [esp+0Ah], bl</span><br><span class="line">89 E6            mov     esi, esp</span><br><span class="line">56               push    esi</span><br><span class="line">FF 55 04         call    dword ptr [ebp+4] ; eax = 765b00 = user32.dll</span><br><span class="line">89 C2            mov     edx, eax</span><br><span class="line">50               push    eax</span><br><span class="line">BB A8 A2 4D BC   mov     ebx, 0BC4DA2A8h</span><br><span class="line">87 1C 24         xchg    ebx, [esp]</span><br><span class="line">52               push    edx</span><br><span class="line">E8 5F FF FF FF   call    find_function   ; eax = 7661fd1e = MessageBoxA</span><br><span class="line">68 6F 78 58 20   push    &#x27; Xxo&#x27;</span><br><span class="line">68 61 67 65 42   push    &#x27;Bega&#x27;</span><br><span class="line">68 4D 65 73 73   push    &#x27;sseM&#x27;          ; 18fc70</span><br><span class="line">31 DB            xor     ebx, ebx</span><br><span class="line">88 5C 24 0A      mov     [esp+0Ah], bl</span><br><span class="line">89 E3            mov     ebx, esp        ; ebx = 18fc70</span><br><span class="line">68 58 20 20 20   push    &#x27;   X&#x27;</span><br><span class="line">68 6D 70 6C 65   push    &#x27;elpm&#x27;</span><br><span class="line">68 20 45 78 61   push    &#x27;axE &#x27;</span><br><span class="line">68 4D 53 46 55   push    &#x27;UFSM&#x27;          ; 18fc60</span><br><span class="line">31 C9            xor     ecx, ecx</span><br><span class="line">88 4C 24 0C      mov     [esp+0Ch], cl</span><br><span class="line">89 E1            mov     ecx, esp        ; ecx = 18fc60</span><br><span class="line">31 D2            xor     edx, edx        ; edx = 0</span><br><span class="line">52               push    edx             ; uType</span><br><span class="line">53               push    ebx             ; lpCaption</span><br><span class="line">51               push    ecx             ; lpText</span><br><span class="line">52               push    edx             ; hWnd</span><br><span class="line">FF D0            call    eax             ; MessageBox</span><br><span class="line">31 C0            xor     eax, eax</span><br><span class="line">50               push    eax</span><br><span class="line">FF 55 08         call    dword ptr [ebp+8]</span><br><span class="line">; start_main     endp</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/rapid7/metasploit-framework/blob/master/modules/payloads/singles/windows/messagebox.rb">msf 中 MsgBox 的源码</a></li>
+<li><a target="_blank" rel="noopener" href="https://green-m.me/2018/04/26/find-api-adress-by-hash/">通过Hash查找API函数地址</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rapid7/metasploit-framework/blob/master/external/source/shellcode/windows/x86/src/block/block_api.asm">msf 中通过 Hash 查找 API 函数地址的源码</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pentest/" rel="tag"># pentest</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/12/GitPage%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/" rel="prev" title="GitPage配置记录">
+                  <i class="fa fa-angle-left"></i> GitPage配置记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/02/18/bind-reverse-tcp/" rel="next" title="bind_reverse_tcp">
+                  bind_reverse_tcp <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">14SEA</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
